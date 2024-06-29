@@ -5,6 +5,7 @@ import { Home } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Separator } from "../ui/separator";
+import Image from "next/image";
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -28,7 +29,7 @@ export default function Sidebar() {
   ];
 
   return (
-    <div className="grid gap-4 ">
+    <div className=" flex flex-col justify-between  gap-4 bg-black h-full">
       <div className="px-4 py-6 space-y-8">
         <ul className="flex flex-col  gap-2">
           {routes.map((route) => (
@@ -59,12 +60,16 @@ export default function Sidebar() {
           {Array.from({ length: 10 }).map((_, i) => (
             <li
               key={i}
-              className="flex text-muted-foreground items-center gap-2"
+              className="flex text-sm text-muted-foreground items-center gap-2"
             >
               <Link href={"/"}>{"Chill Mix"}</Link>
             </li>
           ))}
         </ul>
+      </div>
+
+      <div className="mb-[100px]">
+        <Image src={"/playlist-1.png"} alt="" width={140} height={200} />
       </div>
     </div>
   );
