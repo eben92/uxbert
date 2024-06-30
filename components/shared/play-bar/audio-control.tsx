@@ -1,3 +1,4 @@
+"use client";
 import { useAudioPlayer } from "@/hooks/use-audio-player";
 import {
   Pause,
@@ -8,9 +9,11 @@ import {
   SkipForwardIcon,
 } from "lucide-react";
 import { ButtonProps } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export function AudioControl() {
-  const { togglePlayPause, playing, isReady, isLoading } = useAudioPlayer();
+  const { togglePlayPause, playing, isReady, isLoading, looping, loop } =
+    useAudioPlayer();
 
   return (
     <div className="flex flex-col md:w-[250px] items-center gap-4">
@@ -43,8 +46,11 @@ export function AudioControl() {
           <SkipForwardIcon fill="currentColor" size={18} />
         </ControlButton>
 
-        <ControlButton disabled>
-          <Repeat size={18} />
+        <ControlButton
+          className={looping ? "text-green-500" : ""}
+          onClick={() => loop(!loop)}
+        >
+          <Repeat size={18} color="currentColor" />
         </ControlButton>
       </div>
     </div>
@@ -53,10 +59,20 @@ export function AudioControl() {
 
 interface ControllButtonProps extends ButtonProps {}
 
-export function ControlButton({ children, ...props }: ControllButtonProps) {
+export function ControlButton({
+  className,
+  children,
+  ...props
+}: ControllButtonProps) {
+  const { isLoading } = useAudioPlayer();
+
   return (
     <button
-      className="text-muted-foreground disabled:cursor-not-allowed"
+      className={cn(
+        "text-muted-foreground disabled:cursor-not-allowed ",
+        isLoading ? "cursor-wait" : "",
+        className
+      )}
       {...props}
     >
       {children}
