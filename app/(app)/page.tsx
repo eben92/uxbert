@@ -1,3 +1,4 @@
+import { MusicCard } from "@/components/shared/music-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -41,7 +42,7 @@ export default function Home() {
             </div>
             <div className="grid gap-x-6 gap-y-4 md:grid-cols-3 lg:grid-cols-6">
               {Array.from({ length: 6 }).map((_, i) => (
-                <AlbumCard key={i} />
+                <MusicCard key={i} />
               ))}
             </div>
           </div>
@@ -57,7 +58,7 @@ export default function Home() {
             </div>
             <div className="grid gap-x-6 gap-y-4 md:grid-cols-3 lg:grid-cols-6">
               {Array.from({ length: 6 }).map((_, i) => (
-                <AlbumCard key={i} />
+                <MusicCard key={i} />
               ))}
             </div>
           </div>
@@ -79,30 +80,6 @@ export function UserCard() {
         <ChevronDown size={14} />
       </div>
     </div>
-  );
-}
-
-function AlbumCard() {
-  return (
-    <button className="flex flex-col bg-white/5 rounded items-center justify-start px-0  text-sm gap-4">
-      <Card className="flex flex-col  items-center gap-2 justify-center">
-        <CardHeader className="flex px-4 pb-0 flex-col gap-2 pt-4">
-          <Image
-            src="/playlist-2.png"
-            className="w-full rounded"
-            alt=""
-            width={150}
-            height={150}
-          />
-          <CardTitle className="text-lg text-start">Chill mix</CardTitle>
-        </CardHeader>
-        <CardContent className="pb-4 px-4">
-          <CardDescription className="text-start">
-            Hey Violet, VÉRITÉ, Timeflies and more
-          </CardDescription>
-        </CardContent>
-      </Card>
-    </button>
   );
 }
 
