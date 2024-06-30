@@ -2,7 +2,7 @@
 import { useAudioPlayer } from "@/hooks/use-audio-player";
 import { useLocalSearchParams } from "@/hooks/use-local-search-params";
 import { getTracks } from "@/services/local-services";
-import { TrackProps } from "@/types/chart";
+import { TrackProps } from "@/types/tracks";
 import React, {
   createContext,
   useContext,

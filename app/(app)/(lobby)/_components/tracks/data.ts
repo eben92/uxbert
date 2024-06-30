@@ -1,4 +1,4 @@
-import { TrackProps } from "@/types/chart";
+import { TrackProps } from "@/types/tracks";
 
 export const ChartTracks: {
   data: TrackProps[];

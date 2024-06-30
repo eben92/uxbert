@@ -1,4 +1,4 @@
-import { TrackProps } from "@/types/chart";
+import { TrackProps } from "@/types/tracks";
 
 export function getTrack() {
   return sessionStorage.getItem("track");
