@@ -1,6 +1,5 @@
 import { SliderButton } from "@/components/shared/navigation";
 import { UserCard } from "@/components/shared/user-card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -18,13 +17,7 @@ import {
 } from "@/components/ui/carousel";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  ChevronDown,
-  ChevronLeft,
-  ChevronRight,
-  Search,
-  X,
-} from "lucide-react";
+import { Search, X } from "lucide-react";
 import Image from "next/image";
 
 export default function SearchPage() {
