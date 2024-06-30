@@ -1,6 +1,11 @@
 "use client";
 import { useAudioPlayer } from "@/hooks/use-audio-player";
-import { getTracks, getVolume, saveTracks } from "@/services/local-services";
+import {
+  getMute,
+  getTracks,
+  getVolume,
+  saveTracks,
+} from "@/services/local-services";
 import { TrackProps } from "@/types/tracks";
 import React, {
   createContext,
@@ -48,6 +53,7 @@ export function PlayerContextProvider({
     load(currentTracklist[currentTrackIndex]?.preview ?? "", {
       autoplay: true,
       initialVolume: getVolume(),
+      initialMute: getMute(),
       onend: () => {
         setCurrentTrackIndex((index) => {
           if (index === currentTracklist.length - 1) {

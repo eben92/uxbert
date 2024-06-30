@@ -19,6 +19,22 @@ export function getVolume() {
 }
 
 /**
+ * Saves the mute state to the local storage.
+ * @param mute - A boolean value indicating whether the mute state should be saved or not.
+ */
+export function saveMute(mute: boolean) {
+  localStorage.setItem("mute", mute.toString());
+}
+
+/**
+ * Retrieves the value of the "mute" key from the local storage.
+ * @returns {boolean} The value of the "mute" key. Returns true if the value is "true", false otherwise.
+ */
+export function getMute() {
+  return localStorage.getItem("mute") === "true";
+}
+
+/**
  * Retrieves the value of the "track" item from the session storage.
  * @returns The value of the "track" item, or null if it doesn't exist.
  */

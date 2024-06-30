@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { useCallback } from "react";
 import { ControlButton } from "./audio-control";
-import { saveVolume } from "@/services/local-services";
+import { saveMute, saveVolume } from "@/services/local-services";
 
 export function SoundControl() {
   const { setVolume, volume, mute, muted } = useAudioPlayer();
@@ -36,7 +36,12 @@ export function SoundControl() {
         <MonitorSpeaker size={18} />
       </ControlButton>
 
-      <ControlButton onClick={() => mute(!muted)}>
+      <ControlButton
+        onClick={() => {
+          mute(!muted);
+          saveMute(!muted);
+        }}
+      >
         <Speaker volume={volume} muted={muted} />
       </ControlButton>
 
