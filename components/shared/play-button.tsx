@@ -23,7 +23,7 @@ export function PlayButton({ iconSize, className, ...props }: Props) {
       size={"icon"}
       variant={"ghost"}
       className={cn(
-        "text-muted-foreground rounded-full h-full  bg-[#65D36E] text-black hover:bg-[#65D36E]/90 ",
+        "text-muted-foreground rounded-full h-full shadow-2xl hover:scale-105 transition-all ease-in bg-[#65D36E] text-black  ",
         className
       )}
       {...props}
