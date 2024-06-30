@@ -67,7 +67,7 @@ export default function Home() {
   );
 }
 
-function UserCard() {
+export function UserCard() {
   return (
     <div className="flex items-center pr-2 md:pr-4 p-1 gap-2  rounded-3xl bg-black">
       <Avatar className="h-7 w-7">
@@ -121,7 +121,7 @@ function PlaylistCard() {
   );
 }
 
-function SliderButton() {
+export function SliderButton() {
   return (
     <div className="flex items-center gap-2">
       <button className=" p-2 rounded-full">
