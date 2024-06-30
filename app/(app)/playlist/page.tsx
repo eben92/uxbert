@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { MoreHorizontal, Search } from "lucide-react";
 import Image from "next/image";
 import { SliderButton, UserCard } from "../page";
+import PlaylistTable from "./_components";
 
 export default function Home() {
   return (
@@ -45,8 +46,10 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="bg-primary/5 flex-1 py-4 px-4 md:px-8 lg:px-12">
+      <div className="bg-primary/5 flex-1 flex flex-col gap-8 py-4 px-4 md:px-8 lg:px-12">
         <Controls />
+
+        <Songs />
       </div>
     </main>
   );
@@ -89,9 +92,11 @@ function Controls() {
 function Songs() {
   return (
     <div className=" flex flex-col gap-6">
-      {Array.from({ length: 6 }).map((_, i) => (
+      {/* {Array.from({ length: 6 }).map((_, i) => (
         <div className="" key={i}></div>
-      ))}
+      ))} */}
+
+      <PlaylistTable />
     </div>
   );
 }
