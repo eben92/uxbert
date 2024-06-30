@@ -1,3 +1,4 @@
+import { ChartTracks } from "@/app/(app)/(lobby)/_components/tracks/data";
 import { LikeButton } from "@/components/shared/play-button";
 import {
   Table,
@@ -7,10 +8,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { secondsToMinutes } from "@/lib/utils";
 import { Clock } from "lucide-react";
 import Image from "next/image";
 
-export default function PlaylistTable() {
+export default function TrackList() {
   return (
     <Table>
       <TableHeader>
@@ -29,31 +31,36 @@ export default function PlaylistTable() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {Array.from({ length: 10 }).map((_, i) => (
+        {ChartTracks.data.map((track, i) => (
           <TableRow key={i} className="cursor-pointer hover:bg-accent">
             <TableCell className="max-w-0 pr-0">{i + 1}</TableCell>
             <TableCell>
               <div className="flex items-center gap-4">
-                <Image src={"/playlist-1.png"} width={50} height={50} alt="" />
+                <Image
+                  src={track.album.cover_medium}
+                  width={50}
+                  height={50}
+                  alt=""
+                />
                 <div className="flex flex-col font-medium">
-                  Nixa
+                  {track.title}
                   <div className="hidden text-sm text-muted-foreground md:inline">
-                    All day
+                    {track.artist.name}
                   </div>
                 </div>
               </div>
             </TableCell>
             <TableCell className="hidden sm:table-cell">
-              Ghost Is Here
+              {track.album.title}
             </TableCell>
 
-            <TableCell className="hidden md:table-cell">2023-06-23</TableCell>
+            <TableCell className="hidden md:table-cell">{/* {} */}</TableCell>
             <TableCell className=" table-cell ">
               <div className="flex items-center justify-end gap-6">
                 <div className="hidden md:block">
                   <LikeButton />
                 </div>
-                <p>2:00</p>
+                <p>{secondsToMinutes(track.duration)}</p>
               </div>
             </TableCell>
           </TableRow>

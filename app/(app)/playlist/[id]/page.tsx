@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { MoreHorizontal, Search } from "lucide-react";
 import Image from "next/image";
 import { SliderButton, UserCard } from "../../(lobby)/page";
-import PlaylistTable from "../_components/table";
+import TrackList from "../_components/tracklist";
 
 type Props = {};
 
@@ -51,7 +51,7 @@ export default function PlaylistPage({}: Props) {
       <div className="bg-primary/5 flex-1 flex flex-col gap-8 py-4 px-4 md:px-8 lg:px-12">
         <Controls />
 
-        <Songs />
+        <TrackList />
       </div>
     </main>
   );
@@ -87,14 +87,6 @@ function Controls() {
         <Search size={24} />
         <Sort />
       </div>
-    </div>
-  );
-}
-
-function Songs() {
-  return (
-    <div className=" flex flex-col gap-6">
-      <PlaylistTable />
     </div>
   );
 }

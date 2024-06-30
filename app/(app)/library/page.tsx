@@ -1,4 +1,3 @@
-import { MusicCard } from "@/components/shared/music-card";
 import { SliderButton } from "@/components/shared/navigation";
 import { UserCard } from "@/components/shared/user-card";
 import { Button } from "@/components/ui/button";
@@ -46,11 +45,8 @@ export default function LibraryPage() {
                   <p className="font-semibold">502 liked songs</p>
                 </div>
               </div>
-              {Array.from({ length: 7 }).map((_, i) => (
-                <div className="md:col-span-2">
-                  <MusicCard key={i} />
-                </div>
-              ))}
+
+              {/* <Tracks /> */}
             </div>
           </div>
         </div>
@@ -60,6 +56,7 @@ export default function LibraryPage() {
 }
 
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import Tracks from "../(lobby)/_components/tracks";
 
 export function LibraryToggle() {
   return (
