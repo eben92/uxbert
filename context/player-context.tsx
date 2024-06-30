@@ -1,7 +1,7 @@
 "use client";
 import { useAudioPlayer } from "@/hooks/use-audio-player";
 import { useLocalSearchParams } from "@/hooks/use-local-search-params";
-import { getTracks } from "@/services/local-services";
+import { getTracks, saveTracks } from "@/services/local-services";
 import { TrackProps } from "@/types/tracks";
 import React, {
   createContext,
@@ -13,6 +13,8 @@ import React, {
 
 type PlayerProps = {
   currentTrack: TrackProps | undefined;
+  currentTrackIndex: number;
+  loadTracks: (tracks: TrackProps[], trackIndex: number) => void;
 };
 
 const PlayerContext = createContext<PlayerProps>({} as PlayerProps);
@@ -26,28 +28,33 @@ export function PlayerContextProvider({
 }) {
   const [currentTrackIndex, setCurrentTrackIndex] = useState<number>(0);
   const [currentTrack, setCurrentTrack] = useState<TrackProps | undefined>();
+  const [currentTracklist, setCurrentTracklist] = useState<TrackProps[]>([]);
   const { load } = useAudioPlayer();
 
   const [searchParams] = useLocalSearchParams();
 
-  const isPlaying = searchParams.get("play") === "true";
+  const savedTracks = getTracks();
 
-  const tracklists = useMemo(() => {
-    return getTracks();
-  }, [getTracks]);
+  useMemo(() => {
+    if (!currentTracklist.length && savedTracks.length) {
+      setCurrentTracklist(savedTracks);
+    }
+  }, [savedTracks]);
 
   useEffect(() => {
-    setCurrentTrack(tracklists[currentTrackIndex]);
+    setCurrentTrack(currentTracklist[currentTrackIndex]);
   }, [currentTrackIndex]);
 
   useEffect(() => {
-    if (tracklists.length === 0) return;
+    if (currentTracklist.length === 0) return;
 
-    load(tracklists[currentTrackIndex]?.preview ?? "", {
-      autoplay: isPlaying,
+    load(currentTracklist[currentTrackIndex]?.preview ?? "", {
+      autoplay: true,
+      loop: false,
+      initialVolume: 0.5,
       onend: () => {
         setCurrentTrackIndex((index) => {
-          if (index === tracklists.length - 1) {
+          if (index === currentTracklist.length - 1) {
             return 0;
           }
 
@@ -55,12 +62,22 @@ export function PlayerContextProvider({
         });
       },
     });
-  }, [load, tracklists]);
+  }, [load, currentTracklist, currentTrackIndex]);
+
+  function loadTracks(tracks: TrackProps[], trackIndex: number) {
+    setCurrentTrackIndex(trackIndex);
+    setCurrentTrack(tracks?.[trackIndex ?? 0]);
+    setCurrentTracklist(tracks);
+
+    if (tracks.length > 1) saveTracks(tracks ?? []);
+  }
 
   return (
     <PlayerContext.Provider
       value={{
         currentTrack,
+        loadTracks,
+        currentTrackIndex,
       }}
     >
       {children}

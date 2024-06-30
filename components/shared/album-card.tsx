@@ -10,16 +10,21 @@ import {
 import { PlayButton } from "./play-button";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { usePlayerContext } from "@/context/player-context";
+import { useAudioPlayer } from "@/hooks/use-audio-player";
 
 type Props = {
   src: string;
   title: string;
   by?: string;
-  preview?: string;
+  onPlay?: () => void;
+  id: string | number;
 };
 
-export function AlbumCard({ ...data }: Props) {
+export function AlbumCard({ onPlay, ...data }: Props) {
   const [showPlay, setShowPlay] = useState(false);
+  const { playing, play, pause, paused } = useAudioPlayer();
+  const { currentTrack } = usePlayerContext();
 
   return (
     <button
@@ -57,10 +62,25 @@ export function AlbumCard({ ...data }: Props) {
       <div
         className={cn(
           "absolute right-4 bottom-[33%] transition-all ease-in duration-200",
-          showPlay ? "opacity-100" : "opacity-0"
+          showPlay ? "opacity-100" : "opacity-0",
+          currentTrack?.id === data.id && playing ? "opacity-100" : ""
         )}
       >
         <PlayButton
+          onClick={() => {
+            if (currentTrack?.id === data.id && playing) {
+              pause();
+              return;
+            }
+
+            if (currentTrack?.id === data.id && paused) {
+              play();
+              return;
+            }
+
+            onPlay?.();
+          }}
+          isPlaying={currentTrack?.id === data.id && playing}
           size={"round"}
           variant={"primary"}
           className="text-black w-10 h-10 md:h-14 md:w-14 lg:h-10 lg:w-10"

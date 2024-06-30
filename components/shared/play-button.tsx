@@ -1,9 +1,10 @@
-import { CircleArrowDown, Download, Heart, Play } from "lucide-react";
+import { CircleArrowDown, Download, Heart, Pause, Play } from "lucide-react";
 import { Button, ButtonProps } from "../ui/button";
 import { cn } from "@/lib/utils";
 
 interface Props extends ButtonProps {
   iconSize?: number;
+  isPlaying?: boolean;
 }
 
 function Btn({ className, children, ...props }: Props) {
@@ -17,7 +18,12 @@ function Btn({ className, children, ...props }: Props) {
   );
 }
 
-export function PlayButton({ iconSize, className, ...props }: Props) {
+export function PlayButton({
+  iconSize,
+  isPlaying,
+  className,
+  ...props
+}: Props) {
   return (
     <Btn
       size={"icon"}
@@ -28,7 +34,11 @@ export function PlayButton({ iconSize, className, ...props }: Props) {
       )}
       {...props}
     >
-      <Play size={iconSize ?? 18} fill="currentColor" />
+      {isPlaying ? (
+        <Pause size={iconSize ?? 18} fill="currentColor" />
+      ) : (
+        <Play size={iconSize ?? 18} fill="currentColor" />
+      )}
     </Btn>
   );
 }
