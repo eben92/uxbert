@@ -29,31 +29,35 @@ export default function PlaylistTable() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        <TableRow className="cursor-pointer hover:bg-accent">
-          <TableCell className="max-w-0 pr-0">1</TableCell>
-          <TableCell>
-            <div className="flex items-center gap-4">
-              <Image src={"/playlist-1.png"} width={50} height={50} alt="" />
-              <div className="flex flex-col font-medium">
-                Nixa
-                <div className="hidden text-sm text-muted-foreground md:inline">
-                  All day
+        {Array.from({ length: 10 }).map((_, i) => (
+          <TableRow key={i} className="cursor-pointer hover:bg-accent">
+            <TableCell className="max-w-0 pr-0">{i + 1}</TableCell>
+            <TableCell>
+              <div className="flex items-center gap-4">
+                <Image src={"/playlist-1.png"} width={50} height={50} alt="" />
+                <div className="flex flex-col font-medium">
+                  Nixa
+                  <div className="hidden text-sm text-muted-foreground md:inline">
+                    All day
+                  </div>
                 </div>
               </div>
-            </div>
-          </TableCell>
-          <TableCell className="hidden sm:table-cell">Ghost Is Here</TableCell>
+            </TableCell>
+            <TableCell className="hidden sm:table-cell">
+              Ghost Is Here
+            </TableCell>
 
-          <TableCell className="hidden md:table-cell">2023-06-23</TableCell>
-          <TableCell className=" table-cell ">
-            <div className="flex items-center justify-end gap-6">
-              <div className="hidden md:block">
-                <LikeButton />
+            <TableCell className="hidden md:table-cell">2023-06-23</TableCell>
+            <TableCell className=" table-cell ">
+              <div className="flex items-center justify-end gap-6">
+                <div className="hidden md:block">
+                  <LikeButton />
+                </div>
+                <p>2:00</p>
               </div>
-              <p>2:00</p>
-            </div>
-          </TableCell>
-        </TableRow>
+            </TableCell>
+          </TableRow>
+        ))}
       </TableBody>
     </Table>
   );
