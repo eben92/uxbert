@@ -1,6 +1,6 @@
 import ActivityBar from "@/components/layout/activity-bar";
-import PlayBar from "@/components/layout/bottom-play-bar";
 import Sidebar from "@/components/layout/sidebar";
+import PlayBar from "@/components/shared/play-bar";
 import React from "react";
 
 type Props = {
