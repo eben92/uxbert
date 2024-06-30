@@ -1,7 +1,6 @@
 "use client";
 import { useAudioPlayer } from "@/hooks/use-audio-player";
-import { useLocalSearchParams } from "@/hooks/use-local-search-params";
-import { getTracks, saveTracks } from "@/services/local-services";
+import { getTracks, getVolume, saveTracks } from "@/services/local-services";
 import { TrackProps } from "@/types/tracks";
 import React, {
   createContext,
@@ -31,8 +30,6 @@ export function PlayerContextProvider({
   const [currentTracklist, setCurrentTracklist] = useState<TrackProps[]>([]);
   const { load } = useAudioPlayer();
 
-  const [searchParams] = useLocalSearchParams();
-
   const savedTracks = getTracks();
 
   useMemo(() => {
@@ -50,8 +47,7 @@ export function PlayerContextProvider({
 
     load(currentTracklist[currentTrackIndex]?.preview ?? "", {
       autoplay: true,
-      loop: false,
-      initialVolume: 0.5,
+      initialVolume: getVolume(),
       onend: () => {
         setCurrentTrackIndex((index) => {
           if (index === currentTracklist.length - 1) {

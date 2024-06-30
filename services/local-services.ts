@@ -1,6 +1,24 @@
 import { TrackProps } from "@/types/tracks";
 
 /**
+ * Saves the volume value to the local storage.
+ * @param volume - The volume value to be saved.
+ */
+export function saveVolume(volume: number) {
+  localStorage.setItem("volume", volume.toString());
+}
+
+/**
+ * Retrieves the volume value from the local storage.
+ * If the volume value is not found, it defaults to 1.
+ *
+ * @returns The volume value as a floating-point number.
+ */
+export function getVolume() {
+  return parseFloat(localStorage.getItem("volume") || "1");
+}
+
+/**
  * Retrieves the value of the "track" item from the session storage.
  * @returns The value of the "track" item, or null if it doesn't exist.
  */

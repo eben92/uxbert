@@ -33,8 +33,8 @@ export function AudioProgress() {
 
   const handleChange = useCallback(
     (v: number[]) => {
-      const volValue = parseFloat(Number(v[0] / 100).toFixed(2));
-      return seek(volValue * duration);
+      const seekV = parseFloat(Number(v[0] / 100).toFixed(2));
+      return seek(seekV * duration);
     },
     [seek, pos]
   );

@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { useCallback } from "react";
 import { ControlButton } from "./audio-control";
+import { saveVolume } from "@/services/local-services";
 
 export function SoundControl() {
   const { setVolume, volume, mute, muted } = useAudioPlayer();
@@ -19,6 +20,7 @@ export function SoundControl() {
   const handleChange = useCallback(
     (v: number[]) => {
       const volValue = parseFloat(Number(v[0] / 100).toFixed(2));
+      saveVolume(volValue);
       return setVolume(volValue);
     },
     [setVolume]
