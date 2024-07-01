@@ -1,24 +1,12 @@
 import { SliderButton } from "@/components/shared/navigation";
 import { UserCard } from "@/components/shared/user-card";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel";
+
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Search, X } from "lucide-react";
-import Image from "next/image";
+import { Search } from "lucide-react";
+import BroswerAll from "./_components/browse-all";
+import Genres from "./_components/genres";
+import RecentSearch from "./_components/search-history";
 
 export default function SearchPage() {
   return (
@@ -66,92 +54,5 @@ export default function SearchPage() {
         </div>
       </div>
     </main>
-  );
-}
-
-function CategoryCard() {
-  return (
-    <div>
-      <Card>
-        <CardContent className="px-0 pb-0">
-          <Image
-            src="/playlist-2.png"
-            className="rounded w-full object-cover aspect-square"
-            alt=""
-            width={150}
-            height={150}
-          />
-        </CardContent>
-      </Card>
-    </div>
-  );
-}
-
-function BroswerAll() {
-  return (
-    <div className="grid grid-cols-6 gap-4 md:gap-6">
-      {Array.from({ length: 6 }).map((_, i) => (
-        <CategoryCard key={i} />
-      ))}
-    </div>
-  );
-}
-
-function Genres() {
-  return (
-    <Carousel className="w-full">
-      <CarouselContent className="-ml-1">
-        {Array.from({ length: 5 }).map((_, index) => (
-          <CarouselItem key={index} className="pl-1 md:basis-1/2 lg:basis-1/3">
-            <div className="p-1">
-              <Card>
-                <CardContent className=" aspect-video p-0">
-                  <Image
-                    src="/playlist-2.png"
-                    className="aspect-video w-full object-cover rounded"
-                    alt=""
-                    width={150}
-                    height={150}
-                  />
-                </CardContent>
-              </Card>
-            </div>
-          </CarouselItem>
-        ))}
-      </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
-    </Carousel>
-  );
-}
-
-function RecentSearch() {
-  return (
-    <button className="flex flex-col relative bg-white/5 rounded items-center justify-start px-0  text-sm gap-4">
-      <Button
-        className="absolute top-4 right-4 h-9 w-9"
-        variant={"ghost"}
-        size={"round"}
-      >
-        <X size={24} />
-      </Button>
-      <Card className="flex flex-col  items-center gap-2 justify-center">
-        <CardHeader className="flex px-4 pb-0 flex-col gap-2 pt-4">
-          <div>
-            <Image
-              src="/playlist-2.png"
-              className=" rounded-full w-full"
-              alt=""
-              width={150}
-              height={150}
-            />
-          </div>
-          <CardTitle className="text-lg text-start">The Chainsmokers</CardTitle>
-        </CardHeader>
-        <CardContent className="pb-4 w-full px-4">
-          <CardDescription className="text-start">Artist</CardDescription>
-        </CardContent>
-      </Card>
-    </button>
   );
 }
