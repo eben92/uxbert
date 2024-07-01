@@ -1,5 +1,4 @@
 "use client";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -9,7 +8,6 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 
-import { X } from "lucide-react";
 import Image from "next/image";
 
 export default function SearchHistory() {
@@ -22,13 +20,6 @@ export default function SearchHistory() {
             key={i}
             className="flex flex-col w-full relative bg-white/5 rounded items-center justify-start px-0  text-sm gap-4"
           >
-            <Button
-              className="absolute top-4 right-4 h-9 w-9"
-              variant={"ghost"}
-              size={"round"}
-            >
-              <X size={24} />
-            </Button>
             <Card className="flex w-full flex-col  items-center gap-2 justify-center">
               <CardHeader className="flex w-full px-4 pb-0 flex-col gap-2 pt-4">
                 <div>
