@@ -81,11 +81,14 @@ export default async function PlaylistPage({ params }: Readonly<Props>) {
               </p>
               <div className="flex gap-2 items-center">
                 <p className="text-muted-foreground">
-                  Made for
-                  <span className="text-primary font-semibold">
-                    {" "}
-                    davedirect3{" "}
-                  </span>
+                  Made for{" "}
+                  <a
+                    href="https://github.com/eben92"
+                    target="_blank"
+                    className="text-primary underline font-semibold"
+                  >
+                    @eben92
+                  </a>
                 </p>
                 <p className="text-muted-foreground">
                   {totaltracks} songs, {totalDurationFormatted}

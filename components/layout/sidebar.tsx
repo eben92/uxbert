@@ -101,19 +101,18 @@ export default function Sidebar() {
 function MiniPlayingAlbum() {
   const { currentTrack } = usePlayerContext();
 
+  const imgUrl =
+    currentTrack?.artist.picture_medium ??
+    currentTrack?.album?.cover_medium ??
+    "";
+
   if (!currentTrack) {
     return null;
   }
 
   return (
     <div className="w-full">
-      <Image
-        src={currentTrack?.artist.picture_medium ?? ""}
-        alt=""
-        className="w-full"
-        width={140}
-        height={200}
-      />
+      <Image src={imgUrl} alt="" className="w-full" width={140} height={200} />
     </div>
   );
 }
