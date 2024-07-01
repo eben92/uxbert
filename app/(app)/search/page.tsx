@@ -97,7 +97,7 @@ function BroswerAll() {
   );
 }
 
-export function Genres() {
+function Genres() {
   return (
     <Carousel className="w-full">
       <CarouselContent className="-ml-1">
@@ -125,7 +125,7 @@ export function Genres() {
   );
 }
 
-export function RecentSearch() {
+function RecentSearch() {
   return (
     <button className="flex flex-col relative bg-white/5 rounded items-center justify-start px-0  text-sm gap-4">
       <Button

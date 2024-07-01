@@ -14,8 +14,6 @@ export function PlayButton({
 }: Readonly<Props>) {
   return (
     <SimpleButton
-      size={"icon"}
-      variant={"ghost"}
       className={cn(
         "text-muted-foreground rounded-full h-full shadow-2xl hover:scale-105 transition-all ease-in bg-[#65D36E] text-black  ",
         className
