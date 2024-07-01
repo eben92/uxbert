@@ -1,5 +1,3 @@
-import Image from "next/image";
-import * as React from "react";
 import { SVGProps } from "react";
 
 export const Home = (props: SVGProps<SVGSVGElement>) => (

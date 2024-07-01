@@ -1,5 +1,5 @@
 import { PlaylistProps } from "@/types";
-import Image from "next/image";
+import { Image } from "@/components/ui/image";
 import Link from "next/link";
 import { Label } from "../ui/label";
 

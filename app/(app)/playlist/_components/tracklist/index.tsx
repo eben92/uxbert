@@ -1,4 +1,5 @@
-import { LikeButton } from "@/components/shared/play-button";
+"use client";
+import { Favorite } from "@/components/shared/favorite";
 import {
   Table,
   TableBody,
@@ -7,10 +8,21 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { usePlayerContext } from "@/context/player-context";
+import { useAudioPlayer } from "@/hooks/use-audio-player";
+import { cn, secondsToMinutes } from "@/lib/utils";
+import { TrackProps } from "@/types/tracks";
 import { Clock } from "lucide-react";
-import Image from "next/image";
+import { Image } from "@/components/ui/image";
 
-export default function PlaylistTable() {
+type Props = {
+  data: TrackProps[];
+};
+
+export default function TrackList({ data }: Readonly<Props>) {
+  const { playing, pause, play } = useAudioPlayer();
+  const { currentTrack, loadTracks } = usePlayerContext();
+
   return (
     <Table>
       <TableHeader>
@@ -29,31 +41,51 @@ export default function PlaylistTable() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {Array.from({ length: 10 }).map((_, i) => (
-          <TableRow key={i} className="cursor-pointer hover:bg-accent">
+        {data.map((track, i) => (
+          <TableRow
+            key={track.id}
+            onClick={() => {
+              if (currentTrack?.id === track.id) {
+                playing ? pause() : play();
+
+                return;
+              }
+
+              loadTracks(data, i);
+            }}
+            className={cn(
+              "cursor-pointer hover:bg-accent",
+              currentTrack?.id === track.id && "bg-accent"
+            )}
+          >
             <TableCell className="max-w-0 pr-0">{i + 1}</TableCell>
             <TableCell>
               <div className="flex items-center gap-4">
-                <Image src={"/playlist-1.png"} width={50} height={50} alt="" />
+                <Image
+                  src={track.album.cover_medium}
+                  width={50}
+                  height={50}
+                  alt=""
+                />
                 <div className="flex flex-col font-medium">
-                  Nixa
+                  {track.title}
                   <div className="hidden text-sm text-muted-foreground md:inline">
-                    All day
+                    {track.artist.name}
                   </div>
                 </div>
               </div>
             </TableCell>
             <TableCell className="hidden sm:table-cell">
-              Ghost Is Here
+              {track.album.title}
             </TableCell>
 
-            <TableCell className="hidden md:table-cell">2023-06-23</TableCell>
+            <TableCell className="hidden md:table-cell"></TableCell>
             <TableCell className=" table-cell ">
               <div className="flex items-center justify-end gap-6">
                 <div className="hidden md:block">
-                  <LikeButton />
+                  <Favorite />
                 </div>
-                <p>2:00</p>
+                <p>{track.duration ? secondsToMinutes(track.duration) : "-"}</p>
               </div>
             </TableCell>
           </TableRow>

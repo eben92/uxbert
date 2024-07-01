@@ -1,17 +1,36 @@
-import { AlbumCard } from "@/components/shared/album-card";
-import { ChartTracks } from "./data";
+import { buttonVariants } from "@/components/ui/button";
+import { Label } from "@radix-ui/react-label";
+import { Link } from "lucide-react";
+import ClientComponent from "./client";
+import { ApiResponse, TrackProps } from "@/types";
+import { ENV } from "@/lib/constants";
+import { ViewAllButton } from "@/components/shared/view-more";
 
-export default function Tracks() {
+async function getData() {
+  const res = await fetch(`${ENV.BASE_URL}/api/v1/tracks`, {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch albums");
+  }
+
+  const data = (await res.json()) as ApiResponse<TrackProps[]>;
+
+  return data;
+}
+
+export default async function YourTopMixes() {
+  const res = await getData();
+  const data = res.results;
+
   return (
-    <div className="grid gap-x-6 gap-y-4 md:grid-cols-3 lg:grid-cols-6">
-      {ChartTracks.data.map((track) => (
-        <AlbumCard
-          key={track.id}
-          src={track.artist.picture_medium}
-          title={track.title}
-          by={track.artist.name}
-        />
-      ))}
+    <div className="flex flex-col gap-4">
+      <div className="flex items-center justify-between">
+        <Label className="text-2xl font-bold">Your top mixes</Label>
+        <ViewAllButton tracks={data} />
+      </div>
+      <ClientComponent data={data} />
     </div>
   );
 }
