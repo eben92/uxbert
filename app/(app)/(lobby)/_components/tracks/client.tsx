@@ -18,7 +18,7 @@ export default function ClientComponent({ data }: { data: TrackProps[] }) {
           title={track.title}
           by={track.artist.name}
           onPlay={() => {
-            loadTracks([], i);
+            loadTracks(data, i);
           }}
         />
       ))}
