@@ -10,6 +10,7 @@ export default function Tracks() {
     <div className="grid  gap-x-4 md:gap-x-6 gap-y-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6">
       {ChartTracks.data.map((track, i) => (
         <AlbumCard
+          type={track.type}
           id={track.id}
           key={track.id}
           src={track.artist.picture_medium}

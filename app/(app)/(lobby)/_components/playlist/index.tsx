@@ -1,16 +1,35 @@
 import { AlbumCard } from "@/components/shared/album-card";
-import { TopPlaylists } from "./data";
+import { ENV } from "@/lib/constants";
+import { AlbumProps, ApiResponse } from "@/types";
 
-export default function Playlists() {
+async function getData() {
+  const res = await fetch(`${ENV.BASE_URL}/api/v1/albums`, {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch albums");
+  }
+
+  const data = (await res.json()) as ApiResponse<AlbumProps[]>;
+
+  return data;
+}
+
+export default async function Playlists() {
+  const res = await getData();
+  const data = res.results;
+
   return (
     <div className="grid gap-x-4 md:gap-x-6 gap-y-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6">
-      {TopPlaylists.data.map((playlist) => (
+      {data.map((item) => (
         <AlbumCard
-          id={playlist.id}
-          key={playlist.id}
-          src={playlist.picture_medium}
-          title={playlist.title}
-          by={playlist.user?.name}
+          id={item.id}
+          key={item.id}
+          src={item.cover_medium}
+          title={item.title}
+          by={item.artist.name}
+          type={item.type}
         />
       ))}
     </div>
