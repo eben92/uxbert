@@ -1,5 +1,6 @@
-import { ENV } from "@/lib/constants";
-import { AlbumProps, ApiResponse, PlaylistProps, TrackProps } from "@/types";
+"use client";
+
+import { ApiResponse, TrackProps } from "@/types";
 
 type SearchResponse = TrackProps[];
 
@@ -11,7 +12,9 @@ type SearchResponse = TrackProps[];
 export async function getSearchQuery(
   q: string
 ): Promise<ApiResponse<SearchResponse>> {
-  const response = await fetch(`${ENV.BASE_URL}/api/v1/search?q=${q}`);
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/search?q=${q}`
+  );
 
   if (!response.ok) {
     return {
