@@ -8,12 +8,7 @@ export function DownloadButton({
   ...props
 }: Readonly<SimpleButtonProps>) {
   return (
-    <SimpleButton
-      size={"icon"}
-      className={cn("text-muted-foreground", className)}
-      variant={"ghost"}
-      {...props}
-    >
+    <SimpleButton className={cn("text-muted-foreground", className)} {...props}>
       <CircleArrowDown size={iconSize ?? 18} fill="none" />
     </SimpleButton>
   );

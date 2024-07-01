@@ -55,7 +55,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 );
 Button.displayName = "Button";
 
-export interface SimpleButtonProps extends ButtonProps {
+export interface SimpleButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   iconSize?: number;
 }
 

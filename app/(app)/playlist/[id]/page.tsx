@@ -1,25 +1,60 @@
 import { Label } from "@/components/ui/label";
-import { secondsToTime } from "@/lib/utils";
+import { ENV } from "@/lib/constants";
+import { cn, secondsToTime } from "@/lib/utils";
+import type { ApiResponse, PlaylistProps, TrackProps } from "@/types";
+import { type FastAverageColorResult } from "fast-average-color";
 import Image from "next/image";
-import { ChartTracks } from "../../(lobby)/_components/tracks/data";
 import { SliderButton, UserCard } from "../../(lobby)/page";
 import { PlaylistControls } from "../_components/controls";
 import TrackList from "../_components/tracklist";
+import { CSSProperties } from "react";
 
 type Props = {
   params: { id: string };
 };
 
-export default function PlaylistPage({ params }: Readonly<Props>) {
-  const totalDuration = ChartTracks.data.reduce((acc, track) => {
-    return acc + track.duration;
-  }, 0);
+interface PlaylistResponse extends PlaylistProps {
+  tracks: TrackProps[];
+  imageColor: { style: CSSProperties } & FastAverageColorResult;
+}
 
-  const totaltracks = ChartTracks.total;
-  const totalDurationFormatted = secondsToTime(totalDuration);
+async function getPlaylist(id: string) {
+  const res = await fetch(`${ENV.BASE_URL}/api/v1/playlists/${id}`, {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch playlist");
+  }
+
+  const data = (await res.json()) as ApiResponse<PlaylistResponse>;
+
+  return data;
+}
+
+export default async function PlaylistPage({ params }: Readonly<Props>) {
+  const playslistRes = await getPlaylist(params.id);
+
+  const playlist = playslistRes.results;
+  const tracks = playlist?.tracks ?? [];
+  const gradientStyle = playlist?.imageColor?.style ?? {};
+
+  const totaltracks = tracks?.length;
+
+  const threeArtists = tracks
+    .slice(0, 3)
+    .map((track) => track.artist.name)
+    .join(", ");
+
+  const totalDurationFormatted = secondsToTime(playlist?.duration ?? 0);
 
   return (
-    <main className=" flex flex-col gap-10  py-8 bg-gradient-to-b from-[#DEF628] h-full to-60%">
+    <main
+      className={cn(
+        " flex flex-col gap-10 py-8 bg-gradient-to-b h-full to-60%"
+      )}
+      style={gradientStyle}
+    >
       <div className=" px-4 md:px-8 lg:px-12 flex flex-col gap-4 ">
         <div className="flex items-center justify-between w-full">
           <SliderButton />
@@ -27,16 +62,21 @@ export default function PlaylistPage({ params }: Readonly<Props>) {
         </div>
         <div className="flex flex-col gap-6">
           <div className="flex items-end gap-6">
-            <Image src={"/playlist-1.png"} alt="" width={300} height={300} />
+            <Image
+              src={playlist.picture_medium}
+              alt=""
+              width={300}
+              height={300}
+            />
             <div className="flex flex-col gap-4">
               <p className="font-semibold">Public playlist</p>
               <Label className="text-[100px] leading-none font-bold">
-                Chill Mix
+                {playlist?.title}
               </Label>
               <p className="font-semibold">
-                Julia Wolf , ayokay, Khalid{" "}
+                {threeArtists}
                 <span className="text-muted-foreground font-normal">
-                  and more
+                  {playlist.nb_tracks > 3 && " and more"}
                 </span>
               </p>
               <div className="flex gap-2 items-center">
@@ -58,7 +98,7 @@ export default function PlaylistPage({ params }: Readonly<Props>) {
       <div className="bg-primary/5 flex-1 flex flex-col gap-8 py-4 px-4 md:px-8 lg:px-12">
         <PlaylistControls playlistId={params.id} />
 
-        <TrackList data={ChartTracks.data} />
+        <TrackList data={tracks} />
       </div>
     </main>
   );
