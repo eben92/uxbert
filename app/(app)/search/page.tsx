@@ -12,15 +12,15 @@ export default function SearchPage() {
   return (
     <main className="pb-8">
       <div className=" flex flex-col gap-4">
-        <div className="flex px-4 py-4 md:px-6 items-center bg-black justify-between w-full">
-          <div className="flex items-center gap-4">
+        <div className="flex px-4 gap-4 py-4 md:px-6 items-center bg-black justify-between w-full">
+          <div className="flex items-center w-full gap-4">
             <SliderButton />
-            <div className="relative">
-              <span className="absolute left-2 text-black top-2">
+            <div className="relative w-full ">
+              <span className="absolute left-2 text-black/50 top-2">
                 <Search size={24} className="" />
               </span>
               <Input
-                className="pl-10 text-base bg-primary text-black rounded-3xl md:min-w-[300px] lg:min-w-[500px]"
+                className="pl-10 w-full md:text-base bg-primary text-black  rounded-3xl md:min-w-[300px] lg:min-w-[500px]"
                 placeholder="Artists, songs, or podcasts"
               />
             </div>
@@ -30,7 +30,7 @@ export default function SearchPage() {
         <div className="px-4 md:px-6 flex flex-col gap-6">
           <div className="flex flex-col gap-4">
             <Label className="text-2xl font-bold">Recent searches</Label>
-            <div className="grid gap-x-6 gap-y-4 grid-cols-2 md:grid-cols-4 lg:grid-cols-6 ">
+            <div className="grid gap-x-4 md:gap-x-6 gap-y-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6">
               {Array.from({ length: 2 }).map((_, i) => (
                 <RecentSearch key={i} />
               ))}

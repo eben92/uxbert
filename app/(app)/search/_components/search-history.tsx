@@ -12,7 +12,7 @@ import Image from "next/image";
 
 export default function RecentSearch() {
   return (
-    <button className="flex flex-col relative bg-white/5 rounded items-center justify-start px-0  text-sm gap-4">
+    <div className="flex flex-col w-full relative bg-white/5 rounded items-center justify-start px-0  text-sm gap-4">
       <Button
         className="absolute top-4 right-4 h-9 w-9"
         variant={"ghost"}
@@ -20,8 +20,8 @@ export default function RecentSearch() {
       >
         <X size={24} />
       </Button>
-      <Card className="flex flex-col  items-center gap-2 justify-center">
-        <CardHeader className="flex px-4 pb-0 flex-col gap-2 pt-4">
+      <Card className="flex w-full flex-col  items-center gap-2 justify-center">
+        <CardHeader className="flex w-full px-4 pb-0 flex-col gap-2 pt-4">
           <div>
             <Image
               src="/playlist-2.png"
@@ -37,6 +37,6 @@ export default function RecentSearch() {
           <CardDescription className="text-start">Artist</CardDescription>
         </CardContent>
       </Card>
-    </button>
+    </div>
   );
 }
