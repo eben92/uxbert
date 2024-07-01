@@ -1,6 +1,7 @@
 "use client";
 
 import { Input } from "@/components/ui/input";
+import { useSearchContext } from "@/context/search-context";
 import { useDebounceValue } from "@/hooks/use-debounce-value";
 import { useLocalSearchParams } from "@/hooks/use-local-search-params";
 import { getSearchQuery } from "@/services/client-service";
@@ -8,18 +9,24 @@ import { Search } from "lucide-react";
 import { useEffect } from "react";
 
 export default function SearchBar() {
+  const { setSearchResult } = useSearchContext();
   const [searchParams, setSearchParams] = useLocalSearchParams();
   const defaultValue = searchParams.get("q") || "";
   const [debouncedValue, setValue] = useDebounceValue(defaultValue, 500);
 
   async function fetchData() {
     const data = await getSearchQuery(debouncedValue);
-    console.log(data);
+    setSearchResult(data?.results);
   }
 
   useEffect(() => {
     if (debouncedValue && debouncedValue.length >= 4) {
       fetchData();
+      return;
+    }
+
+    if (debouncedValue.length === 0) {
+      setSearchResult([]);
     }
   }, [debouncedValue]);
 

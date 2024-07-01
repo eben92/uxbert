@@ -1,13 +1,10 @@
 import { SliderButton } from "@/components/shared/navigation";
 import { UserCard } from "@/components/shared/user-card";
 
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Search } from "lucide-react";
 import BroswerAll from "./_components/browse-all";
-import SearchHistory from "./_components/search-history";
-import SearchResult from "./_components/search-result";
 import SearchBar from "./_components/search-bar";
+import SearchResult from "./_components/search-result";
 
 export default function SearchPage() {
   return (
@@ -23,7 +20,7 @@ export default function SearchPage() {
         <div className="px-4 md:px-6 flex flex-col gap-6">
           <SearchResult />
 
-          <SearchHistory />
+          {/* <SearchHistory /> */}
 
           <div className="flex flex-col gap-4 mt-4">
             <div className="flex items-center justify-between">

@@ -1,7 +1,7 @@
 import { ENV } from "@/lib/constants";
 import { AlbumProps, ApiResponse, PlaylistProps, TrackProps } from "@/types";
 
-type SearchResponse = (PlaylistProps | AlbumProps | TrackProps)[];
+type SearchResponse = TrackProps[];
 
 /**
  * Retrieves search results based on the provided query.
