@@ -5,7 +5,7 @@ import { Image } from "@/components/ui/image";
 
 async function getData() {
   const res = await fetch(`${ENV.BASE_URL}/api/v1/genres`, {
-    // cache: "no-store",
+    cache: "no-store",
   });
 
   if (!res.ok) {
@@ -17,7 +17,7 @@ async function getData() {
   return data;
 }
 
-export default async function BroswerAll() {
+export default async function Genres() {
   const res = await getData();
   const data = res.results;
 
