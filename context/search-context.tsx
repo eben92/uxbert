@@ -45,7 +45,6 @@ export function SearchContextProvider({
   const sResults = getLocalPlaylist();
 
   useEffect(() => {
-    console.log(sResults);
     if (sResults.id) {
       setCachedSearchResult(sResults);
     }
@@ -67,7 +66,12 @@ export function SearchContextProvider({
 
   useEffect(() => {
     if (searchResult.length === 0) {
-      return;
+      return setPaginatedResult({
+        data: [],
+        hasNextPage: false,
+        page: 0,
+        total: 0,
+      } as PaginatedResult);
     }
 
     const total = searchResult.length;

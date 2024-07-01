@@ -1,4 +1,3 @@
-"use client";
 import { SliderButton } from "@/components/shared/navigation";
 import { UserCard } from "@/components/shared/user-card";
 
@@ -7,7 +6,7 @@ import BroswerAll from "./_components/browse-all";
 import SearchBar from "./_components/search-bar";
 import SearchResult from "./_components/search-result";
 
-export default function SearchPage() {
+export default async function SearchPage() {
   return (
     <main className="pb-8">
       <div className=" flex flex-col gap-4">

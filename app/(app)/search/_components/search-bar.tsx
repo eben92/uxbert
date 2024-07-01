@@ -20,12 +20,14 @@ export default function SearchBar() {
   }
 
   useEffect(() => {
+    console.log(debouncedValue);
+
     if (debouncedValue && debouncedValue.length >= 4) {
       fetchData();
       return;
     }
 
-    if (debouncedValue.length === 0) {
+    if (!debouncedValue) {
       setSearchResult([]);
     }
   }, [debouncedValue]);
