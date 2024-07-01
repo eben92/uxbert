@@ -22,11 +22,11 @@ export default function Sidebar() {
       to: "/search",
       label: "Search",
     },
-    {
-      icon: Library,
-      to: "/library",
-      label: "Your Library",
-    },
+    // {
+    //   icon: Library,
+    //   to: "/library",
+    //   label: "Your Library",
+    // },
   ] as const;
 
   return (
@@ -52,6 +52,16 @@ export default function Sidebar() {
               <Link href={route.to}>{route.label}</Link>
             </li>
           ))}
+          <li
+            className={cn(
+              "flex items-center cursor-not-allowed lg:text-lg gap-4 font-semibold text-muted-foreground"
+            )}
+          >
+            <div>
+              <Library size={24} />
+            </div>
+            <p>Your Library</p>
+          </li>
         </ul>
 
         <ul className="flex flex-col gap-4">
