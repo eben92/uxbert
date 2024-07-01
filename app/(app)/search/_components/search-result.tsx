@@ -15,7 +15,7 @@ import Image from "next/image";
 export default function SearchHistory() {
   return (
     <div className="flex flex-col gap-4">
-      <Label className="text-2xl font-bold">Recent searches</Label>
+      <Label className="text-2xl font-bold">Search Result</Label>
       <div className="grid gap-x-4 md:gap-x-6 gap-y-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6">
         {Array.from({ length: 2 }).map((_, i) => (
           <div
