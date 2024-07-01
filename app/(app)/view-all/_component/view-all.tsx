@@ -8,7 +8,7 @@ import { UserCard } from "@/components/shared/user-card";
 import { Label } from "@/components/ui/label";
 import { useLocalSearchParams } from "@/hooks/use-local-search-params";
 import { getLocalPlaylist } from "@/services/local-services";
-import Image from "next/image";
+import { Image } from "@/components/ui/image";
 
 export default function ViewAll() {
   const cachedSearchResult = getLocalPlaylist();

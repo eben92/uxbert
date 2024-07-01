@@ -10,7 +10,7 @@ import {
 import { Label } from "@/components/ui/label";
 
 import { X } from "lucide-react";
-import Image from "next/image";
+import { Image } from "@/components/ui/image";
 
 export default function SearchHistory() {
   return (

@@ -3,11 +3,12 @@ import { ENV } from "@/lib/constants";
 import { cn, secondsToTime } from "@/lib/utils";
 import type { AlbumProps, ApiResponse, TrackProps } from "@/types";
 import { type FastAverageColorResult } from "fast-average-color";
-import Image from "next/image";
+
 import { CSSProperties } from "react";
 import { SliderButton, UserCard } from "../../(lobby)/page";
 import { PlaylistControls } from "../../playlist/_components/controls";
 import TrackList from "../../playlist/_components/tracklist";
+import { Image } from "@/components/ui/image";
 
 type Props = {
   params: { id: string };

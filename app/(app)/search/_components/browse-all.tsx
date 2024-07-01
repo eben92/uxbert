@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { ENV } from "@/lib/constants";
 import { ApiResponse, GenreProps } from "@/types";
-import Image from "next/image";
+import { Image } from "@/components/ui/image";
 
 async function getData() {
   const res = await fetch(`${ENV.BASE_URL}/api/v1/genres`, {

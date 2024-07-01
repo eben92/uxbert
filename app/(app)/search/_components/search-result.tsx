@@ -1,4 +1,5 @@
 "use client";
+import { ViewAllButton } from "@/components/shared/view-more";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -9,9 +10,8 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { useSearchContext } from "@/context/search-context";
-import { saveToLocalPlaylist } from "@/services/local-services";
 
-import Image from "next/image";
+import { Image } from "@/components/ui/image";
 import { useRouter } from "next/navigation";
 
 export default function SearchHistory() {
@@ -27,20 +27,7 @@ export default function SearchHistory() {
       <div className="flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <Label className="text-2xl font-bold">Search Result</Label>
-          <Button
-            onClick={() => {
-              saveToLocalPlaylist(searchResult);
-              router.push(
-                "/search/view-all?album=" +
-                  paginatedResult.data?.[0]?.album?.cover_medium ??
-                  paginatedResult.data?.[0]?.artist?.picture_medium
-              );
-            }}
-            variant={"ghost"}
-            className="text-sm text-muted-foreground"
-          >
-            View all
-          </Button>
+          <ViewAllButton tracks={searchResult} />
         </div>
         <div className="grid gap-x-4 md:gap-x-6 gap-y-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6">
           {paginatedResult.data.map((res, i) => (

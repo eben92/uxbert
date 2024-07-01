@@ -13,7 +13,7 @@ import { useAudioPlayer } from "@/hooks/use-audio-player";
 import { cn, secondsToMinutes } from "@/lib/utils";
 import { TrackProps } from "@/types/tracks";
 import { Clock } from "lucide-react";
-import Image from "next/image";
+import { Image } from "@/components/ui/image";
 
 type Props = {
   data: TrackProps[];

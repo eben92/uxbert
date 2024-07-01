@@ -3,7 +3,7 @@
 import { usePlayerContext } from "@/context/player-context";
 import { cn } from "@/lib/utils";
 import { Heart, Home, Library, PlusIcon, Search } from "lucide-react";
-import Image from "next/image";
+import { Image } from "@/components/ui/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Separator } from "../ui/separator";
