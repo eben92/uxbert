@@ -17,7 +17,7 @@ export function Image({ className, alt, src, ...props }: ImageProps) {
       className={cn(
         className,
         "duration-700 ease-in-out",
-        isLoading ? "scale-105 blur-sm" : "scale-100 blur-0"
+        isLoading ? "scale-100 blur-sm" : "scale-100 blur-0"
       )}
       onLoad={() => setLoading(false)}
       src={
