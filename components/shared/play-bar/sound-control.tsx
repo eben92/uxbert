@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { useCallback } from "react";
 import { ControlButton } from "./audio-control";
-import { saveMute, saveVolume } from "@/services/local-services";
+import { saveMuteState, saveVolume } from "@/services/local-services";
 
 export function SoundControl() {
   const { setVolume, volume, mute, muted } = useAudioPlayer();
@@ -39,7 +39,7 @@ export function SoundControl() {
       <ControlButton
         onClick={() => {
           mute(!muted);
-          saveMute(!muted);
+          saveMuteState(!muted);
         }}
       >
         <Speaker volume={volume} muted={muted} />

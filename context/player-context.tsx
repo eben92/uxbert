@@ -1,7 +1,7 @@
 "use client";
 import { useAudioPlayer } from "@/hooks/use-audio-player";
 import {
-  getMute,
+  getMuteState,
   getTracks,
   getVolume,
   saveTracks,
@@ -53,7 +53,7 @@ export function PlayerContextProvider({
     load(currentTracklist[currentTrackIndex]?.preview ?? "", {
       autoplay: true,
       initialVolume: getVolume(),
-      initialMute: getMute(),
+      initialMute: getMuteState(),
       onend: () => {
         setCurrentTrackIndex((index) => {
           if (index === currentTracklist.length - 1) {
