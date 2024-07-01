@@ -20,7 +20,7 @@ import {
 } from "@/services/local-services";
 
 export function SoundControl() {
-  const { setVolume, volume, mute, muted } = useAudioPlayer();
+  const { setVolume, mute, muted } = useAudioPlayer();
 
   const handleChange = useCallback(
     (v: number[]) => {
