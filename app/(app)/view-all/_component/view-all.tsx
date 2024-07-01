@@ -59,7 +59,7 @@ export default function ViewAll() {
         </div>
       </div>
       <div className="bg-primary/5 flex-1 flex flex-col gap-8 py-4 px-4 md:px-8 lg:px-12">
-        <PlaylistControls playlistId={cachedSearchResult.id} />
+        <PlaylistControls data={cachedSearchResult.data} />
 
         <TrackList data={cachedSearchResult.data} />
       </div>

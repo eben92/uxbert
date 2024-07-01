@@ -24,7 +24,7 @@ export default async function BroswerAll() {
   return (
     <div className="grid gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6">
       {data.map((genre) => (
-        <button className="p-1 cursor-not-allowed w-full h-full">
+        <button key={genre.id} className="p-1 cursor-not-allowed w-full h-full">
           <Card>
             <CardContent className=" aspect-video relative p-0">
               <Image
