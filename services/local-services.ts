@@ -2,45 +2,61 @@
 import { TrackProps } from "@/types/tracks";
 
 /**
- * Saves the volume value to the local storage.
+ * Saves the volume value to the session  storage.
  * @param volume - The volume value to be saved.
  */
 export function saveVolume(volume: number) {
-  localStorage.setItem("volume", volume.toString());
+  sessionStorage.setItem("volume", volume.toString());
 }
 
 /**
- * Retrieves the volume value from the local storage.
+ * Retrieves the volume value from the session  storage.
  * If the volume value is not found, it defaults to 1.
  *
  * @returns The volume value as a floating-point number.
  */
 export function getVolume() {
-  return parseFloat(localStorage.getItem("volume") || "1");
+  if (typeof window === "undefined") {
+    return 1;
+  }
+  return parseFloat(sessionStorage.getItem("volume") || "1");
 }
 
 /**
- * Saves the mute state to the local storage.
+ * Saves the mute state to the session  storage.
  * @param mute - A boolean value indicating whether the mute state should be saved or not.
  */
 export function saveMuteState(mute: boolean) {
-  localStorage.setItem("mute", mute.toString());
+  sessionStorage.setItem("mute", mute.toString());
 }
 
 /**
- * Retrieves the value of the "mute" key from the local storage.
+ * Retrieves the value of the "mute" key from the session storage.
  * @returns {boolean} The value of the "mute" key. Returns true if the value is "true", false otherwise.
  */
 export function getMuteState() {
-  return localStorage.getItem("mute") === "true";
+  if (typeof window === "undefined") {
+    return false;
+  }
+
+  return sessionStorage.getItem("mute") === "true";
 }
 
 /**
  * Retrieves the value of the "track" item from the session storage.
  * @returns The value of the "track" item, or null if it doesn't exist.
  */
-export function getTrack() {
-  return sessionStorage.getItem("track");
+export function getTrack(): TrackProps | null {
+  if (typeof window === "undefined") {
+    return null;
+  }
+
+  const d = sessionStorage.getItem("track");
+
+  if (d) {
+    return JSON.parse(d);
+  }
+  return null;
 }
 
 /**
@@ -63,6 +79,10 @@ export function removeTrack() {
  * @returns An array of TrackProps objects representing the tracks.
  */
 export function getTracks(): TrackProps[] {
+  if (typeof window === "undefined") {
+    return [];
+  }
+
   return JSON.parse(sessionStorage.getItem("tracks") || "[]");
 }
 
@@ -79,4 +99,49 @@ export function saveTracks(tracks: TrackProps[]) {
  */
 export function removeTracks() {
   sessionStorage.removeItem("tracks");
+}
+
+/**
+ * Retrieves the recently played tracks from session storage.
+ * @returns An array of TrackProps representing the recently played tracks.
+ */
+export function getRecentlyPlayed(): TrackProps[] {
+  return JSON.parse(sessionStorage.getItem("recentlyPlayed") || "[]");
+}
+
+/**
+ * Saves the recently played tracks to the session storage.
+ * @param recentlyPlayed - An array of TrackProps representing the recently played tracks.
+ */
+function saveRecentlyPlayed(recentlyPlayed: TrackProps[]) {
+  sessionStorage.setItem("recentlyPlayed", JSON.stringify(recentlyPlayed));
+}
+
+/**
+ * Saves a track to the recently played list.
+ * If the track is already in the list, it is moved to the top.
+ * If the list exceeds 10 tracks, the oldest track is removed.
+ * @param track - The track to be saved.
+ * @returns The updated recently played list.
+ */
+export function saveToRecentlyPlayed(track: TrackProps): TrackProps[] {
+  const recentlyPlayed = getRecentlyPlayed();
+
+  const alreadyPlayed = recentlyPlayed.find((t) => t.id === track.id);
+  if (alreadyPlayed) {
+    // move it to the top
+    const newRecentlyPlayed = recentlyPlayed.filter((t) => t.id !== track.id);
+    const nList = [track, ...newRecentlyPlayed];
+    saveRecentlyPlayed(nList);
+    return nList;
+  }
+
+  if (recentlyPlayed.length >= 10) {
+    recentlyPlayed.pop();
+  }
+
+  const newRecentlyPlayed = [track, ...recentlyPlayed];
+  saveRecentlyPlayed(newRecentlyPlayed);
+
+  return newRecentlyPlayed;
 }

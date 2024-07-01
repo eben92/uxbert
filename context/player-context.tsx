@@ -2,8 +2,10 @@
 import { useAudioPlayer } from "@/hooks/use-audio-player";
 import {
   getMuteState,
+  getRecentlyPlayed,
   getTracks,
   getVolume,
+  saveToRecentlyPlayed,
   saveTracks,
 } from "@/services/local-services";
 import { TrackProps } from "@/types/tracks";
@@ -17,6 +19,8 @@ import React, {
 
 type PlayerProps = {
   currentTrack: TrackProps | undefined;
+  recentlyPlay: TrackProps[];
+
   currentTrackIndex: number;
   loadTracks: (tracks: TrackProps[], trackIndex: number) => void;
 };
@@ -33,9 +37,12 @@ export function PlayerContextProvider({
   const [currentTrackIndex, setCurrentTrackIndex] = useState<number>(0);
   const [currentTrack, setCurrentTrack] = useState<TrackProps | undefined>();
   const [currentTracklist, setCurrentTracklist] = useState<TrackProps[]>([]);
+
+  const [recentlyPlay, setRecentlyPlayed] = useState<TrackProps[]>([]);
+
   const { load } = useAudioPlayer();
 
-  const savedTracks = getTracks();
+  const savedTracks = useMemo(() => getTracks(), [getTracks]);
 
   useMemo(() => {
     if (!currentTracklist.length && savedTracks.length) {
@@ -46,6 +53,18 @@ export function PlayerContextProvider({
   useEffect(() => {
     setCurrentTrack(currentTracklist[currentTrackIndex]);
   }, [currentTrackIndex]);
+
+  useEffect(() => {
+    const rPlayed = getRecentlyPlayed();
+    setRecentlyPlayed(rPlayed);
+  }, []);
+
+  useEffect(() => {
+    if (!currentTrack) return;
+
+    const res = saveToRecentlyPlayed(currentTrack);
+    setRecentlyPlayed(res);
+  }, [currentTrack]);
 
   useEffect(() => {
     if (currentTracklist.length === 0) return;
@@ -80,6 +99,7 @@ export function PlayerContextProvider({
         currentTrack,
         loadTracks,
         currentTrackIndex,
+        recentlyPlay,
       }}
     >
       {children}
