@@ -61,12 +61,13 @@ export default async function PlaylistPage({ params }: Readonly<Props>) {
           <UserCard />
         </div>
         <div className="flex flex-col gap-6">
-          <div className="flex items-end gap-6">
+          <div className="flex sm:flex-row flex-col items-start sm:items-end gap-6">
             <Image
               src={playlist.picture_medium}
               alt=""
               width={300}
               height={300}
+              className="w-full sm:w-auto"
             />
             <div className="flex flex-col gap-4">
               <p className="font-semibold">Public playlist</p>

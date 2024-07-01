@@ -1,4 +1,5 @@
 "use client";
+import { CachedProps } from "@/context/search-context";
 import { TrackProps } from "@/types/tracks";
 
 /**
@@ -146,6 +147,26 @@ export function saveToRecentlyPlayed(track: TrackProps): TrackProps[] {
   return newRecentlyPlayed;
 }
 
-// export function saveSearchResults(results: TrackProps[]) {
-//   sessionStorage.setItem("searchResults", JSON.stringify(results));
-// }
+export function saveSearchResults(results: TrackProps[]) {
+  const id = generateRandomID();
+
+  sessionStorage.setItem(
+    "local_playlist",
+    JSON.stringify({ data: results, id })
+  );
+}
+
+export function getSearchResults(): CachedProps {
+  if (typeof window === "undefined") {
+    return {
+      data: [],
+      id: "",
+    };
+  }
+
+  return JSON.parse(sessionStorage.getItem("local_playlist") || "{}");
+}
+
+function generateRandomID() {
+  return Math.random().toString(36).substr(2, 9);
+}

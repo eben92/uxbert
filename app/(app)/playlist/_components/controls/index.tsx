@@ -18,6 +18,7 @@ export function PlaylistControls({ playlistId }: Readonly<Props>) {
     <div className="flex items-center gap-4 justify-between">
       <div className="flex items-center gap-4 ">
         <PlayButton
+          isPlaying={false}
           className="text-black w-12 h-12 md:h-14 md:w-14 lg:h-16 lg:w-16"
           iconSize={24}
         />

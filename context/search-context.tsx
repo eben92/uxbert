@@ -1,4 +1,5 @@
 "use client";
+import { getSearchResults } from "@/services/local-services";
 import { TrackProps } from "@/types";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
@@ -9,8 +10,11 @@ type PaginatedResult = {
   hasNextPage: boolean;
 };
 
+export type CachedProps = { data: TrackProps[]; id: string };
+
 type SearchProps = {
   searchResult: TrackProps[];
+  cachedSearchResult: CachedProps;
   setSearchResult: (tracks: TrackProps[]) => void;
   handleViewMore: () => void;
   paginatedResult: PaginatedResult;
@@ -32,6 +36,20 @@ export function SearchContextProvider({
     page: 0,
     total: 0,
   } as PaginatedResult);
+
+  const [cachedSearchResult, setCachedSearchResult] = useState<CachedProps>({
+    data: [],
+    id: "",
+  });
+
+  const sResults = getSearchResults();
+
+  useEffect(() => {
+    console.log(sResults);
+    if (sResults.id) {
+      setCachedSearchResult(sResults);
+    }
+  }, [getSearchResults]);
 
   function handleViewMore() {
     const { data, page } = paginatedResult;
@@ -71,6 +89,7 @@ export function SearchContextProvider({
         setSearchResult,
         handleViewMore,
         paginatedResult,
+        cachedSearchResult,
       }}
     >
       {children}
