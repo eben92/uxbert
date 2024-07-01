@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { useSearchContext } from "@/context/search-context";
-import { saveSearchResults } from "@/services/local-services";
+import { saveToLocalPlaylist } from "@/services/local-services";
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -29,7 +29,7 @@ export default function SearchHistory() {
           <Label className="text-2xl font-bold">Search Result</Label>
           <Button
             onClick={() => {
-              saveSearchResults(searchResult);
+              saveToLocalPlaylist(searchResult);
               router.push(
                 "/search/view-all?album=" +
                   paginatedResult.data?.[0]?.album?.cover_medium ??

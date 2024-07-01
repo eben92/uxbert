@@ -1,5 +1,5 @@
 "use client";
-import { getSearchResults } from "@/services/local-services";
+import { getLocalPlaylist } from "@/services/local-services";
 import { TrackProps } from "@/types";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
@@ -42,14 +42,14 @@ export function SearchContextProvider({
     id: "",
   });
 
-  const sResults = getSearchResults();
+  const sResults = getLocalPlaylist();
 
   useEffect(() => {
     console.log(sResults);
     if (sResults.id) {
       setCachedSearchResult(sResults);
     }
-  }, [getSearchResults]);
+  }, [getLocalPlaylist]);
 
   function handleViewMore() {
     const { data, page } = paginatedResult;

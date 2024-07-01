@@ -147,7 +147,11 @@ export function saveToRecentlyPlayed(track: TrackProps): TrackProps[] {
   return newRecentlyPlayed;
 }
 
-export function saveSearchResults(results: TrackProps[]) {
+/**
+ * Saves an array of track objects to the local playlist.
+ * @param results - The array of track objects to be saved.
+ */
+export function saveToLocalPlaylist(results: TrackProps[]) {
   const id = generateRandomID();
 
   sessionStorage.setItem(
@@ -156,7 +160,13 @@ export function saveSearchResults(results: TrackProps[]) {
   );
 }
 
-export function getSearchResults(): CachedProps {
+/**
+ * Retrieves the local playlist from session storage.
+ * If the code is running in a browser environment, it parses the stored JSON string and returns the playlist.
+ * If the code is running in a non-browser environment, it returns an empty playlist object.
+ * @returns The local playlist object.
+ */
+export function getLocalPlaylist(): CachedProps {
   if (typeof window === "undefined") {
     return {
       data: [],
@@ -167,6 +177,11 @@ export function getSearchResults(): CachedProps {
   return JSON.parse(sessionStorage.getItem("local_playlist") || "{}");
 }
 
+/**
+ * Generates a random ID.
+ *
+ * @returns {string} The generated random ID.
+ */
 function generateRandomID() {
   return Math.random().toString(36).substr(2, 9);
 }

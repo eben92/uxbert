@@ -8,11 +8,11 @@ import { UserCard } from "@/components/shared/user-card";
 import { Label } from "@/components/ui/label";
 import { useSearchContext } from "@/context/search-context";
 import { useLocalSearchParams } from "@/hooks/use-local-search-params";
-import { getSearchResults } from "@/services/local-services";
+import { getLocalPlaylist } from "@/services/local-services";
 import Image from "next/image";
 
 export default function ViewAll() {
-  const cachedSearchResult = getSearchResults();
+  const cachedSearchResult = getLocalPlaylist();
   const [searchParams] = useLocalSearchParams();
 
   const album = searchParams.get("album") ?? "";
