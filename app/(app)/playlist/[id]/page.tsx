@@ -1,18 +1,16 @@
-import { PlayButton } from "@/components/shared/play-button";
-import { Sort } from "@/components/shared/sort";
 import { Label } from "@/components/ui/label";
 import { secondsToTime } from "@/lib/utils";
-import { MoreHorizontal, Search } from "lucide-react";
 import Image from "next/image";
 import { ChartTracks } from "../../(lobby)/_components/tracks/data";
 import { SliderButton, UserCard } from "../../(lobby)/page";
+import { PlaylistControls } from "../_components/controls";
 import TrackList from "../_components/tracklist";
-import { Favorite } from "@/components/shared/favorite";
-import { DownloadButton } from "@/components/shared/download";
 
-type Props = {};
+type Props = {
+  params: { id: string };
+};
 
-export default function PlaylistPage({}: Readonly<Props>) {
+export default function PlaylistPage({ params }: Readonly<Props>) {
   const totalDuration = ChartTracks.data.reduce((acc, track) => {
     return acc + track.duration;
   }, 0);
@@ -58,40 +56,10 @@ export default function PlaylistPage({}: Readonly<Props>) {
         </div>
       </div>
       <div className="bg-primary/5 flex-1 flex flex-col gap-8 py-4 px-4 md:px-8 lg:px-12">
-        <Controls />
+        <PlaylistControls playlistId={params.id} />
 
         <TrackList data={ChartTracks.data} />
       </div>
     </main>
-  );
-}
-
-function Controls() {
-  return (
-    <div className="flex items-center gap-4 justify-between">
-      <div className="flex items-center gap-4 ">
-        <PlayButton
-          size={"round"}
-          variant={"primary"}
-          className="text-black w-12 h-12 md:h-14 md:w-14 lg:h-16 lg:w-16"
-          iconSize={24}
-        />
-        <div className="flex items-center gap-4">
-          <Favorite size={"round"} className="text-foreground" iconSize={32} />
-          <DownloadButton
-            size={"round"}
-            className="text-foreground"
-            iconSize={32}
-          />
-
-          <MoreHorizontal size={32} />
-        </div>
-      </div>
-
-      <div className="flex items-center gap-4">
-        <Search size={24} />
-        <Sort />
-      </div>
-    </div>
   );
 }
