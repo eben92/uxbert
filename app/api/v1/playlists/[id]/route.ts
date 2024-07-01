@@ -1,4 +1,5 @@
 import { generateColorFromImage } from "@/app/api/_helpers/generate-color-from-image";
+import { generateStylesFromValues } from "@/app/api/_helpers/utils";
 import { ENV } from "@/lib/constants";
 import { PlaylistProps, TrackProps } from "@/types";
 
@@ -30,13 +31,27 @@ export async function GET(_request: Request, { params }: Props) {
     const imageColor = await generateColorFromImage(playlist.picture_medium);
 
     return Response.json({
-      result: {
-        ...imageColor,
-        playlist,
+      results: {
+        ...playlist,
+        tracks: playlist.tracks.data,
+        imageColor: {
+          ...imageColor,
+          style: generateStylesFromValues(imageColor.value, imageColor.hex),
+        },
       },
       status: 200,
+      message: "Playlist fetched successfully",
     });
   } catch (error) {
-    return new Response("Failed to fetch playlist", { status: 500 });
+    return new Response(
+      JSON.stringify({
+        message: "Failed to fetch playlist",
+        status: 5000,
+        results: null,
+      }),
+      {
+        status: 500,
+      }
+    );
   }
 }
