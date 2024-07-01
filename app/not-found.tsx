@@ -1,19 +1,8 @@
-"use client";
 import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
-import { SVGProps, useEffect } from "react";
+import { SVGProps } from "react";
 
-export default function GlobalError({
-  error,
-}: {
-  error: Error & { digest?: string };
-  reset: () => void;
-}) {
-  useEffect(() => {
-    // Log the error to an error reporting service
-    console.error(error);
-  }, [error]);
-
+export default function ErrorPage() {
   return (
     <div className="flex min-h-[100dvh] flex-col items-center justify-center  px-4 py-12 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-md text-center">
@@ -24,8 +13,7 @@ export default function GlobalError({
           Oops, something went wrong!
         </h1>
         <p className="mt-4 text-lg text-white/80">
-          We&apos;re having trouble finding your music right now. Please try
-          again in a few moments.
+          We couldn&apos;t find the page you are looking for.
         </p>
         <div className="mt-6 flex items-center gap-4 justify-center">
           <Link
