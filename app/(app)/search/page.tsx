@@ -1,3 +1,4 @@
+"use client";
 import { SliderButton } from "@/components/shared/navigation";
 import { UserCard } from "@/components/shared/user-card";
 
