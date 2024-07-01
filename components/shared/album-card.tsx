@@ -45,14 +45,14 @@ export function AlbumCard({ onPlay, ...data }: Props) {
   }
 
   return (
-    <button
+    <div
       onPointerEnter={() => {
         setShowPlay(true);
       }}
       onPointerLeave={() => {
         setShowPlay(false);
       }}
-      className="flex w-full relative flex-col bg-white/5 rounded items-center justify-start px-0  text-sm gap-4"
+      className="flex cursor-pointer w-full relative flex-col bg-white/5 rounded items-center justify-start px-0  text-sm gap-4"
     >
       <Card
         onClick={() => {
@@ -100,6 +100,6 @@ export function AlbumCard({ onPlay, ...data }: Props) {
           iconSize={18}
         />
       </div>
-    </button>
+    </div>
   );
 }
