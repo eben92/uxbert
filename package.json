@@ -26,6 +26,7 @@
     "embla-carousel-react": "^8.1.5",
     "fast-average-color": "^9.4.0",
     "howler": "^2.2.4",
+    "lodash.debounce": "^4.0.8",
     "lucide-react": "^0.399.0",
     "next": "14.2.4",
     "next-themes": "^0.3.0",
@@ -38,6 +39,7 @@
   },
   "devDependencies": {
     "@types/howler": "^2.2.11",
+    "@types/lodash.debounce": "^4.0.9",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

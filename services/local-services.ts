@@ -145,3 +145,7 @@ export function saveToRecentlyPlayed(track: TrackProps): TrackProps[] {
 
   return newRecentlyPlayed;
 }
+
+// export function saveSearchResults(results: TrackProps[]) {
+//   sessionStorage.setItem("searchResults", JSON.stringify(results));
+// }
