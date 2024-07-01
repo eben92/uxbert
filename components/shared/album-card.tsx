@@ -34,10 +34,10 @@ export function AlbumCard({ onPlay, ...data }: Props) {
       onPointerLeave={() => {
         setShowPlay(false);
       }}
-      className="flex relative flex-col bg-white/5 rounded items-center justify-start px-0  text-sm gap-4"
+      className="flex w-full relative flex-col bg-white/5 rounded items-center justify-start px-0  text-sm gap-4"
     >
-      <Card className="flex flex-col h-full  items-center gap-2 justify-start">
-        <CardHeader className="flex px-4 pb-0 flex-col gap-2 pt-4">
+      <Card className="flex w-full border-none flex-col h-full  items-center gap-2 justify-start">
+        <CardHeader className="flex px-4 w-full pb-0 flex-col gap-2 pt-4">
           <Image
             src={data?.src}
             className="w-full rounded"

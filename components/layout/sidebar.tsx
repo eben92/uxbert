@@ -6,6 +6,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Separator } from "../ui/separator";
 import Image from "next/image";
+import { usePlayerContext } from "@/context/player-context";
+import { useAudioPlayer } from "@/hooks/use-audio-player";
 
 export default function Sidebar() {
   const pathname = usePathname();
@@ -29,7 +31,7 @@ export default function Sidebar() {
   ];
 
   return (
-    <div className=" flex flex-col justify-between  gap-4 bg-black h-full">
+    <div className="flex flex-col justify-between   gap-4 bg-black h-full">
       <div className="px-4 py-6 space-y-8">
         <ul className="flex flex-col  gap-2">
           {routes.map((route) => (
@@ -68,9 +70,27 @@ export default function Sidebar() {
         </ul>
       </div>
 
-      <div className="mb-[100px]">
-        <Image src={"/playlist-1.png"} alt="" width={140} height={200} />
-      </div>
+      <MiniPlayingAlbum />
+    </div>
+  );
+}
+
+function MiniPlayingAlbum() {
+  const { currentTrack } = usePlayerContext();
+
+  if (!currentTrack) {
+    return null;
+  }
+
+  return (
+    <div className="w-full">
+      <Image
+        src={currentTrack?.artist.picture_medium ?? ""}
+        alt=""
+        className="w-full"
+        width={140}
+        height={200}
+      />
     </div>
   );
 }
