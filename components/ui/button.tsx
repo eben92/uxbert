@@ -55,4 +55,19 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 );
 Button.displayName = "Button";
 
-export { Button, buttonVariants };
+export interface SimpleButtonProps extends ButtonProps {
+  iconSize?: number;
+}
+
+function SimpleButton({ className, children, ...props }: SimpleButtonProps) {
+  return (
+    <button
+      className={cn("flex  items-center justify-center", className)}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+}
+
+export { Button, SimpleButton, buttonVariants };
