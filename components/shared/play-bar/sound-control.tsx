@@ -12,7 +12,12 @@ import {
 } from "lucide-react";
 import { useCallback } from "react";
 import { ControlButton } from "./audio-control";
-import { saveMuteState, saveVolume } from "@/services/local-services";
+import {
+  getMuteState,
+  getVolume,
+  saveMuteState,
+  saveVolume,
+} from "@/services/local-services";
 
 export function SoundControl() {
   const { setVolume, volume, mute, muted } = useAudioPlayer();
@@ -25,6 +30,8 @@ export function SoundControl() {
     },
     [setVolume]
   );
+
+  const sessionVolume = getVolume();
 
   return (
     <div className="flex items-center w-full gap-2">
@@ -42,13 +49,13 @@ export function SoundControl() {
           saveMuteState(!muted);
         }}
       >
-        <Speaker volume={volume} muted={muted} />
+        <Speaker volume={sessionVolume} muted={getMuteState()} />
       </ControlButton>
 
       <div className="flex-shrink-0 flex-1">
         <Slider
           className="cursor-grab"
-          value={[volume * 100]}
+          value={[sessionVolume * 100]}
           max={100}
           step={1}
           onValueChange={handleChange}
