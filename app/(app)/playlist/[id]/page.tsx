@@ -1,18 +1,25 @@
-import {
-  DownloadButton,
-  LikeButton,
-  PlayButton,
-} from "@/components/shared/play-button";
+import { PlayButton } from "@/components/shared/play-button";
 import { Sort } from "@/components/shared/sort";
 import { Label } from "@/components/ui/label";
+import { secondsToTime } from "@/lib/utils";
 import { MoreHorizontal, Search } from "lucide-react";
 import Image from "next/image";
+import { ChartTracks } from "../../(lobby)/_components/tracks/data";
 import { SliderButton, UserCard } from "../../(lobby)/page";
 import TrackList from "../_components/tracklist";
+import { Favorite } from "@/components/shared/favorite";
+import { DownloadButton } from "@/components/shared/download";
 
 type Props = {};
 
-export default function PlaylistPage({}: Props) {
+export default function PlaylistPage({}: Readonly<Props>) {
+  const totalDuration = ChartTracks.data.reduce((acc, track) => {
+    return acc + track.duration;
+  }, 0);
+
+  const totaltracks = ChartTracks.total;
+  const totalDurationFormatted = secondsToTime(totalDuration);
+
   return (
     <main className=" flex flex-col gap-10  py-8 bg-gradient-to-b from-[#DEF628] h-full to-60%">
       <div className=" px-4 md:px-8 lg:px-12 flex flex-col gap-4 ">
@@ -42,7 +49,9 @@ export default function PlaylistPage({}: Props) {
                     davedirect3{" "}
                   </span>
                 </p>
-                <p className="text-muted-foreground">34 songs, 2hr 01 min</p>
+                <p className="text-muted-foreground">
+                  {totaltracks} songs, {totalDurationFormatted}
+                </p>
               </div>
             </div>
           </div>
@@ -51,7 +60,7 @@ export default function PlaylistPage({}: Props) {
       <div className="bg-primary/5 flex-1 flex flex-col gap-8 py-4 px-4 md:px-8 lg:px-12">
         <Controls />
 
-        <TrackList />
+        <TrackList data={ChartTracks.data} />
       </div>
     </main>
   );
@@ -68,11 +77,7 @@ function Controls() {
           iconSize={24}
         />
         <div className="flex items-center gap-4">
-          <LikeButton
-            size={"round"}
-            className="text-foreground"
-            iconSize={32}
-          />
+          <Favorite size={"round"} className="text-foreground" iconSize={32} />
           <DownloadButton
             size={"round"}
             className="text-foreground"

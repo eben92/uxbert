@@ -1,5 +1,5 @@
-import { ChartTracks } from "@/app/(app)/(lobby)/_components/tracks/data";
-import { LikeButton } from "@/components/shared/play-button";
+"use client";
+import { Favorite } from "@/components/shared/favorite";
 import {
   Table,
   TableBody,
@@ -8,11 +8,21 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { secondsToMinutes } from "@/lib/utils";
+import { usePlayerContext } from "@/context/player-context";
+import { useAudioPlayer } from "@/hooks/use-audio-player";
+import { cn, secondsToMinutes } from "@/lib/utils";
+import { TrackProps } from "@/types/tracks";
 import { Clock } from "lucide-react";
 import Image from "next/image";
 
-export default function TrackList() {
+type Props = {
+  data: TrackProps[];
+};
+
+export default function TrackList({ data }: Props) {
+  const { playing, pause, play } = useAudioPlayer();
+  const { currentTrack, loadTracks } = usePlayerContext();
+
   return (
     <Table>
       <TableHeader>
@@ -31,8 +41,23 @@ export default function TrackList() {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {ChartTracks.data.map((track, i) => (
-          <TableRow key={i} className="cursor-pointer hover:bg-accent">
+        {data.map((track, i) => (
+          <TableRow
+            key={track.id}
+            onClick={() => {
+              if (currentTrack?.id === track.id) {
+                playing ? pause() : play();
+
+                return;
+              }
+
+              loadTracks(data, i);
+            }}
+            className={cn(
+              "cursor-pointer hover:bg-accent",
+              currentTrack?.id === track.id && "bg-accent"
+            )}
+          >
             <TableCell className="max-w-0 pr-0">{i + 1}</TableCell>
             <TableCell>
               <div className="flex items-center gap-4">
@@ -54,11 +79,11 @@ export default function TrackList() {
               {track.album.title}
             </TableCell>
 
-            <TableCell className="hidden md:table-cell">{/* {} */}</TableCell>
+            <TableCell className="hidden md:table-cell"></TableCell>
             <TableCell className=" table-cell ">
               <div className="flex items-center justify-end gap-6">
                 <div className="hidden md:block">
-                  <LikeButton />
+                  <Favorite />
                 </div>
                 <p>{secondsToMinutes(track.duration)}</p>
               </div>
