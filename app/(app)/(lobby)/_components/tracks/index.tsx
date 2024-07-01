@@ -1,26 +1,43 @@
-"use client";
-import { AlbumCard } from "@/components/shared/album-card";
-import { usePlayerContext } from "@/context/player-context";
-import { TrackProps } from "@/types";
+import { buttonVariants } from "@/components/ui/button";
+import { Label } from "@radix-ui/react-label";
+import { Link } from "lucide-react";
+import ClientComponent from "./client";
+import { ApiResponse, TrackProps } from "@/types";
+import { ENV } from "@/lib/constants";
 
-export default function Tracks() {
-  const { loadTracks } = usePlayerContext();
+async function getData() {
+  const res = await fetch(`${ENV.BASE_URL}/api/v1/tracks`, {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch albums");
+  }
+
+  const data = (await res.json()) as ApiResponse<TrackProps[]>;
+
+  return data;
+}
+
+export default async function YourTopMixes() {
+  const res = await getData();
+  const data = res.results;
 
   return (
-    <div className="grid  gap-x-4 md:gap-x-6 gap-y-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6">
-      {([] as TrackProps[]).map((track, i) => (
-        <AlbumCard
-          type={track.type}
-          id={track.id}
-          key={track.id}
-          src={track.artist.picture_medium}
-          title={track.title}
-          by={track.artist.name}
-          onPlay={() => {
-            loadTracks([], i);
-          }}
-        />
-      ))}
+    <div className="flex flex-col gap-4">
+      <div className="flex items-center justify-between">
+        <Label className="text-2xl font-bold">Your top mixes</Label>
+        <Link
+          href="/"
+          className={buttonVariants({
+            className: "rounded text-sm text-muted-foreground",
+            variant: "ghost",
+          })}
+        >
+          View all
+        </Link>
+      </div>
+      <ClientComponent data={data} />
     </div>
   );
 }

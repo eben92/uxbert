@@ -5,7 +5,7 @@ import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import Playlists from "./_components/playlist";
 import MiniPlaylist from "./_components/playlist/mini-playlist";
 import RecentlyPlayed from "./_components/recently-played/page";
-import Tracks from "./_components/tracks";
+import YourTopMixes from "./_components/tracks";
 
 export default function HomePage() {
   return (
@@ -21,18 +21,8 @@ export default function HomePage() {
             <MiniPlaylist />
           </div>
 
-          <div className="flex flex-col gap-4">
-            <div className="flex items-center justify-between">
-              <Label className="text-2xl font-bold">Your top mixes</Label>
-              <Button
-                variant={"ghost"}
-                className="rounded text-sm text-muted-foreground"
-              >
-                View all
-              </Button>
-            </div>
-            <Tracks />
-          </div>
+          <YourTopMixes />
+
           <div className="flex flex-col gap-4">
             <div className="flex items-center justify-between">
               <Label className="text-2xl font-bold">Made for you</Label>
