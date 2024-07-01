@@ -6,7 +6,6 @@ import NotFoundPage from "@/app/not-found";
 import { SliderButton } from "@/components/shared/navigation";
 import { UserCard } from "@/components/shared/user-card";
 import { Label } from "@/components/ui/label";
-import { useSearchContext } from "@/context/search-context";
 import { useLocalSearchParams } from "@/hooks/use-local-search-params";
 import { getLocalPlaylist } from "@/services/local-services";
 import Image from "next/image";

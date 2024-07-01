@@ -1,5 +1,4 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
 import Playlists from "./_components/playlist";
@@ -23,19 +22,7 @@ export default function HomePage() {
 
           <YourTopMixes />
 
-          <div className="flex flex-col gap-4">
-            <div className="flex items-center justify-between">
-              <Label className="text-2xl font-bold">Made for you</Label>
-              <Button
-                variant={"ghost"}
-                className="text-sm text-muted-foreground"
-              >
-                View all
-              </Button>
-            </div>
-
-            <Playlists />
-          </div>
+          <Playlists />
 
           <RecentlyPlayed />
         </div>

@@ -69,7 +69,8 @@ export default async function AlbumPage({ params }: Readonly<Props>) {
             />
             <div className="flex flex-col gap-4">
               <p className="font-semibold">Public playlist</p>
-              <Label className="text-[100px] leading-none font-bold">
+
+              <Label className="text-[32px] md:text-[50px] lg:text-[100px] leading-none font-bold">
                 {album?.title}
               </Label>
               <p className="font-semibold">

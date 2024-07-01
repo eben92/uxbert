@@ -85,7 +85,7 @@ export default function TrackList({ data }: Readonly<Props>) {
                 <div className="hidden md:block">
                   <Favorite />
                 </div>
-                <p>{secondsToMinutes(track.duration)}</p>
+                <p>{track.duration ? secondsToMinutes(track.duration) : "-"}</p>
               </div>
             </TableCell>
           </TableRow>

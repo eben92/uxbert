@@ -1,5 +1,6 @@
 "use client";
 import { CachedProps } from "@/context/search-context";
+import { AlbumProps } from "@/types";
 import { TrackProps } from "@/types/tracks";
 
 /**

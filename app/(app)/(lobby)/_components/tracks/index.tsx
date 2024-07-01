@@ -4,6 +4,7 @@ import { Link } from "lucide-react";
 import ClientComponent from "./client";
 import { ApiResponse, TrackProps } from "@/types";
 import { ENV } from "@/lib/constants";
+import { ViewAllButton } from "@/components/shared/view-more";
 
 async function getData() {
   const res = await fetch(`${ENV.BASE_URL}/api/v1/tracks`, {
@@ -27,15 +28,7 @@ export default async function YourTopMixes() {
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
         <Label className="text-2xl font-bold">Your top mixes</Label>
-        <Link
-          href="/"
-          className={buttonVariants({
-            className: "rounded text-sm text-muted-foreground",
-            variant: "ghost",
-          })}
-        >
-          View all
-        </Link>
+        <ViewAllButton tracks={data} />
       </div>
       <ClientComponent data={data} />
     </div>
