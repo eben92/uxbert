@@ -12,17 +12,17 @@ export default function PlayBar() {
 
   return (
     <div className="flex px-4 md:px-6 justify-between items-center py-6 w-full bg-white/5">
-      <div className="hidden lg:flex items-center gap-4">
+      <div className="hidden lg:flex items-center gap-4 max-w-[200px]  w-full">
         {currentTrack && (
           <>
             <div className="flex flex-col gap-1">
               <Label className="text-sm">{currentTrack.title}</Label>
-              <Label className="text-xs text-muted-foreground">
+              <Label className="text-xs truncate text-muted-foreground">
                 {currentTrack.artist.name}
               </Label>
             </div>
             <Button
-              className="disabled:cursor-not-allowed"
+              className="disabled:cursor-not-allowed "
               variant={"ghost"}
               size={"round"}
               disabled

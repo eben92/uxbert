@@ -19,7 +19,7 @@ type Props = {
   data: TrackProps[];
 };
 
-export default function TrackList({ data }: Props) {
+export default function TrackList({ data }: Readonly<Props>) {
   const { playing, pause, play } = useAudioPlayer();
   const { currentTrack, loadTracks } = usePlayerContext();
 

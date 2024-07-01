@@ -12,8 +12,24 @@ import { ButtonProps } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 export function AudioControl() {
-  const { togglePlayPause, playing, isReady, isLoading, looping, loop } =
-    useAudioPlayer();
+  const {
+    togglePlayPause,
+    duration,
+    playing,
+    isReady,
+    isLoading,
+    looping,
+    loop,
+    seek,
+  } = useAudioPlayer();
+
+  function skipToNext() {
+    seek(duration * 0.99);
+  }
+
+  function skipToPrevious() {
+    seek(0);
+  }
 
   return (
     <div className="flex flex-col md:w-[250px] items-center gap-4">
@@ -22,18 +38,17 @@ export function AudioControl() {
           <Shuffle size={18} />
         </ControlButton>
 
-        <ControlButton className="text-gray-300">
+        <ControlButton onClick={skipToPrevious} className="text-gray-300">
           <SkipBack size={18} fill="currentColor" />
         </ControlButton>
 
         <ControlButton
           onClick={togglePlayPause}
           disabled={!isReady}
-          className={
-            isLoading
-              ? "cursor-wait"
-              : "bg-primary rounded-full text-black h-8 w-8 flex items-center justify-center"
-          }
+          className={cn(
+            "bg-primary rounded-full text-black h-8 w-8 flex items-center justify-center",
+            isLoading && "cursor-wait"
+          )}
         >
           {playing ? (
             <Pause size={18} fill="currentColor" />
@@ -42,7 +57,7 @@ export function AudioControl() {
           )}
         </ControlButton>
 
-        <ControlButton className="text-gray-300">
+        <ControlButton onClick={skipToNext} className="text-gray-300">
           <SkipForwardIcon fill="currentColor" size={18} />
         </ControlButton>
 
